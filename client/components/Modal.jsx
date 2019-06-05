@@ -1,5 +1,5 @@
 import React from 'react';
-// // // import styled from 'styled-components';
+import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import MapHelpers from '../map-helpers';
 import API_KEY from '../maps-config';

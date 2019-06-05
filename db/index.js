@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://database/restaurant_info', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/restaurant_info', { useNewUrlParser: true });
 const { Schema } = mongoose;
 
 const restaurantSchema = new Schema({

@@ -1,5 +1,5 @@
 import React from 'react';
-// // // import styled from 'styled-components';
+import styled from 'styled-components';
 import OpenStatus from './OpenStatus';
 import TimeListEntry from './TimeListEntry';
 import CompContainer from './CompContainer';

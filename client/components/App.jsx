@@ -1,5 +1,5 @@
 import React from 'react';
-// // // import styled from 'styled-components';
+import styled from 'styled-components';
 import TimeListContainer from '../redux/containers/TimeListContainer';
 import AddressContainer from '../redux/containers/AddressContainer';
 import PhoneNumberContainer from '../redux/containers/PhoneNumberContainer';

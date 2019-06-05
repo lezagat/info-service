@@ -1,5 +1,5 @@
 import React from 'react';
-// // // import styled from 'styled-components';
+import styled from 'styled-components';
 import CompContainer from './CompContainer';
 
 const Container = styled.div`
