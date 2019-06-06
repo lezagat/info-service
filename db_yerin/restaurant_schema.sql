@@ -1,8 +1,12 @@
-DROP SCHEMA Restaurants IF EXISTS;
+CREATE DATABASE info;
 
-CREATE SCHEMA restaurants;
+DROP SCHEMA IF EXISTS restaurantInfo;
 
-CREATE TABLE Restaurants.restaurants (
+CREATE SCHEMA restaurantInfo;
+
+\c restaurantInfo;
+
+CREATE TABLE restaurantInfo.restaurants (
   id  serial primary key unique,
   name varchar(40) NOT NULL,
   address varchar(100) NOT NULL,
@@ -11,7 +15,7 @@ CREATE TABLE Restaurants.restaurants (
   website  varchar(40) NOT NULL,
 );
 
-CREATE TABLE Restaurants.hours (
+CREATE TABLE restaurantInfo.hours (
   id serial primary key unique,
   Monday_open integer NOT NULL,
   Monday_close integer NOT NULL,
@@ -29,4 +33,4 @@ CREATE TABLE Restaurants.hours (
   Sunday_close integer NOT NULL,
   restaurant_id integer NOT NULL,
   foreign key (restaurant_id) references restaurants(id)
-)
+);

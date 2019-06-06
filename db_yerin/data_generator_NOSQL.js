@@ -4,7 +4,10 @@ const fs = require('fs');
 const data = require('../db/data.js');
 
 
+// psql postgres  < restaurant_schema.sql
 // psql -f file_with_sql.sql
+// COPY tablename FROM path DELIMITER ',' CSV HEADER
+
 const restaurantAppendix = ['Kitchen', 'Place', 'Palace', 'Shop', 'Restaurant', '', '', '', 'Cafeteria', 'Bar', 'Club', 'House', 'Lodge', 'Table'];
 
 const names = [];
@@ -47,7 +50,7 @@ const generateAddresses = (num) => {
   for (let i = 1; i <= num; i += 1) {
     const street = faker.address.streetAddress();
     const city = faker.address.city();
-    const zip = faker.address.zipCode();
+    const zip = faker.address.zipCode().slice(0, 5);
     const state = faker.address.stateAbbr();
     const address = `${street} ${city} ${state} ${zip}`;
     addresses.push(address);
@@ -91,16 +94,16 @@ generateRandomOpeningHours();
 const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant.csv`, { flag: 'a' });
 
 
-function writeOneMillionTimes(stream) {
+function writeManyTimes(stream, cb) {
   const start = new Date();
   console.log('start restaurants');
-  let i = 100;
+  let i = 10000000;
   let header = [
     'name',
-    'website',
-    'coord',
     'address',
+    'coord',
     'phone',
+    'website',
     'Monday_open',
     'Monday_close',
     'Tuesday_open',
@@ -126,10 +129,10 @@ function writeOneMillionTimes(stream) {
     do {
       let restaurant = [
         names[randomIntFromInterval(0, 1000)],
-        urls[randomIntFromInterval(0, 1000)],
-        coords[randomIntFromInterval(0, 1000)],
         addresses[randomIntFromInterval(0, 1000)],
+        coords[randomIntFromInterval(0, 1000)],
         phoneNumbers[randomIntFromInterval(0, 1000)],
+        urls[randomIntFromInterval(0, 1000)],
         opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
         opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
         opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
@@ -142,7 +145,9 @@ function writeOneMillionTimes(stream) {
       i -= 1;
       if (i === 0) {
         // last time!
-        stream.write(restaurant);
+        stream.write(restaurant, 'utf8', cb);
+        const end = new Date();
+        console.log('end restaurants', ' time: ', end - start);
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.
@@ -156,10 +161,10 @@ function writeOneMillionTimes(stream) {
     }
   }
   write();
-  const end = new Date();
-  console.log('end restaurants', ' time: ', end - start);
 }
 
-writeOneMillionTimes(restaurantStream);
+writeManyTimes(restaurantStream, () => {
+  restaurantStream.end();
+});
 
 // restaurantStream.end();

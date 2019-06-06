@@ -27,10 +27,10 @@ generateRandomOpeningHours();
 const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/hours_sql.csv`, { flag: 'a' });
 
 
-function writeManyTimes(stream) {
+function writeManyTimes(stream, cb) {
   const start = new Date();
   console.log('start restaurants');
-  let i = 100;
+  let i = 10000000;
 
   function write() {
     let ok = true;
@@ -68,7 +68,9 @@ function writeManyTimes(stream) {
       i -= 1;
       if (i === 0) {
         // last time!
-        stream.write(restaurant);
+        stream.write(restaurant, 'utf8', cb);
+        const end = new Date();
+        console.log('end restaurants', ' time: ', end - start);
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.
@@ -80,12 +82,10 @@ function writeManyTimes(stream) {
       // write some more once it drains
       stream.once('drain', write);
     }
-    const end = new Date();
-    console.log('end restaurants', ' time: ', end - start);
   }
   write();
 }
 
-writeManyTimes(restaurantStream);
-
-// restaurantStream.end();
+writeManyTimes(restaurantStream, () => {
+  restaurantStream.end();
+});
