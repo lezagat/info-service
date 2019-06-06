@@ -33,7 +33,98 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 - Jest
 - Puppeteer
 
-## Development
+## CRUD API
+
+This is the example of the response of 'GET' request.
+
+```js
+{
+    "address": "8452 Union Street Folsom, CA 95630",
+    "coords": "37.77621299217993° N, 122.39941299217992° W"
+    "Monday_open": 8,
+    "Monday_close": 8
+    "Tuesday_open": 8,
+    "close": 10
+    "open": 7,
+    "close": 7
+    "open": 7,
+    "close": 9
+    "open": 8,
+    "close": 9
+    "open": 6,
+    "close": 7
+    "open": 8,
+    "close": 9
+    "id": 1,
+    "phone": "(834) 394-6382",
+    "website": "http://www.thetable.com",
+}
+```
+
+> Create: 'POST'
+Create new restaurant in database
+```js
+app.post('/api/restaurants', (req, res) => {
+  createRestaurant(req.body)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
+});
+```
+> Read: 'GET'
+Read specific restaurant information with id
+```js
+app.get('/api/restaurants/:id/info/', (req, res) => {
+  const { id } = req.params;
+
+  getRestaurantById(id)
+    .then(([data]) => {
+      res.send(data);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
+});
+```
+
+> Update: 'PUT'
+Update specific restaurant's information with id
+```js
+app.put('/api/restaurants/:id/info/', (req, res) => {
+  const { id } = req.params;
+
+  updateRestaurantById(id, req.body)
+    .then(() => {
+      res.send(data);
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
+});
+
+```
+
+> Delete: 'DELETE'
+Delete specific estaurant's information with id
+```js
+app.delete('/api/restaurants/:id/info/', (req, res) => {
+  const { id } = req.params;
+
+  deleteRestaurantById(id)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+    });
+});
+```
+
 
 ### Installing Dependencies
 

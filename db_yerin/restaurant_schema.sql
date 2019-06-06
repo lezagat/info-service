@@ -27,5 +27,6 @@ CREATE TABLE Restaurants.hours (
   Saturday_close integer NOT NULL,
   Sunday_open integer NOT NULL,
   Sunday_close integer NOT NULL,
+  restaurant_id integer NOT NULL,
   foreign key (restaurant_id) references restaurants(id)
 )

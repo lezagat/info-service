@@ -29,3 +29,6 @@ public/bundle.js
 
 # Maps Config
 client/maps-config.js
+
+#csv files
+db_yerin/data_sql
