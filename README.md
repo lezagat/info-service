@@ -63,6 +63,17 @@ This is the example of the response of 'GET' request.
 
 > Create: 'POST'
 Create new restaurant in database
+
+**Success Response:**
+Inserts new restaurant
+
+Code: 201
+Content: None
+
+**Error Response:**
+Code: 500
+Content: 'error'
+
 ```js
 app.post('/api/restaurants', (req, res) => {
   createRestaurant(req.body)
@@ -76,6 +87,15 @@ app.post('/api/restaurants', (req, res) => {
 ```
 > Read: 'GET'
 Read specific restaurant information with id
+
+**Success Response:**
+Restaurant info with id = id in object format
+Code: 200
+
+**Error Response:**
+Code: 500
+Content: 'error'
+
 ```js
 app.get('/api/restaurants/:id/info/', (req, res) => {
   const { id } = req.params;
@@ -93,6 +113,15 @@ app.get('/api/restaurants/:id/info/', (req, res) => {
 
 > Update: 'PUT'
 Update specific restaurant's information with id
+
+**Success Response:**
+ Updates the restaurant infromation with id = id
+Code: 204
+Content: None
+
+**Error Response:**
+Code: 500
+
 ```js
 app.put('/api/restaurants/:id/info/', (req, res) => {
   const { id } = req.params;
@@ -111,6 +140,17 @@ app.put('/api/restaurants/:id/info/', (req, res) => {
 
 > Delete: 'DELETE'
 Delete specific estaurant's information with id
+
+**Success Response:** 
+Deletes the restaurant with id = id
+
+Code: 204
+Content: None
+
+**Error Response:**
+Code: 500
+Content: 'error'
+
 ```js
 app.delete('/api/restaurants/:id/info/', (req, res) => {
   const { id } = req.params;
