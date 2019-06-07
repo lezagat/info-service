@@ -4,11 +4,11 @@ const fs = require('fs');
 const data = require('../db/data.js');
 
 
-// psql postgres  < restaurant_schema.sql
+// psql postgres  < restaurant_schema_onetable.sql
 // psql -f file_with_sql.sql
-// COPY tablename FROM path DELIMITER ',' CSV HEADER
+// COPY restaurant FROM './data_sql/restaurant_sql.csv' DELIMITER ',' CSV HEADER
 
-const restaurantAppendix = ['Kitchen', 'Place', 'Palace', 'Shop', 'Restaurant', '', '', '', 'Cafeteria', 'Bar', 'Club', 'House', 'Lodge', 'Table'];
+const restaurantAppendix = ['Kitchen', 'Place', 'Palace', 'Shop', 'Restaurant', '', '', '', '', 'House', 'Plus', 'Bowl', 'Noodle', 'BBQ', 'Garden', 'Land', 'Corner', 'Grill', 'Cafeteria', 'Bar', 'Club', 'House', 'Lodge', 'Table', 'Cuisine', 'Restaurante', 'Paradise', 'Town'];
 
 const names = [];
 const urls = [];
@@ -96,9 +96,10 @@ const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant.
 
 function writeManyTimes(stream, cb) {
   const start = new Date();
-  console.log('start restaurants');
+  console.log('start onetable');
   let i = 10000000;
   let header = [
+    'id',
     'name',
     'address',
     'coord',
@@ -128,18 +129,19 @@ function writeManyTimes(stream, cb) {
 
     do {
       let restaurant = [
-        names[randomIntFromInterval(0, 1000)],
-        addresses[randomIntFromInterval(0, 1000)],
-        coords[randomIntFromInterval(0, 1000)],
-        phoneNumbers[randomIntFromInterval(0, 1000)],
-        urls[randomIntFromInterval(0, 1000)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
+        i,
+        `${faker.name.firstName()}’s ${names[randomIntFromInterval(0, 999)]}${Math.floor(Math.random() * 20)} ${faker.address.city()} ${faker.address.state()}`,
+        addresses[randomIntFromInterval(0, 999)],
+        coords[randomIntFromInterval(0, 999)],
+        phoneNumbers[randomIntFromInterval(0, 999)],
+        urls[randomIntFromInterval(0, 999)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
       ];
       restaurant = `${restaurant.join(',')}\n`;
       i -= 1;
@@ -147,7 +149,7 @@ function writeManyTimes(stream, cb) {
         // last time!
         stream.write(restaurant, 'utf8', cb);
         const end = new Date();
-        console.log('end restaurants', ' time: ', end - start);
+        console.log('end onetable', ' time: ', end - start, 'ms');
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.

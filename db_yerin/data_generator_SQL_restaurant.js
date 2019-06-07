@@ -80,27 +80,27 @@ function writeManyTimes(stream, cb) {
   const start = new Date();
   console.log('start restaurants');
   let i = 10000000;
+  let header = [
+    'name',
+    'address',
+    'coord',
+    'phone',
+    'website',
+  ];
+
+  header = `${header.join(',')}\n`;
+  stream.write(header);
 
   function write() {
     let ok = true;
-    let header = [
-      'name',
-      'address',
-      'coord',
-      'phone',
-      'website',
-    ];
-
-    header = `${header.join(',')}\n`;
-    stream.write(header);
 
     do {
       let restaurant = [
-        names[randomIntFromInterval(0, 1000)],
-        addresses[randomIntFromInterval(0, 1000)],
-        coords[randomIntFromInterval(0, 1000)],
-        phoneNumbers[randomIntFromInterval(0, 1000)],
-        urls[randomIntFromInterval(0, 1000)],
+        i + names[randomIntFromInterval(0, 999)],
+        addresses[randomIntFromInterval(0, 999)],
+        coords[randomIntFromInterval(0, 999)],
+        phoneNumbers[randomIntFromInterval(0, 999)],
+        urls[randomIntFromInterval(0, 999)],
       ];
       restaurant = `${restaurant.join(',')}\n`;
       i -= 1;
@@ -108,7 +108,7 @@ function writeManyTimes(stream, cb) {
         // last time!
         stream.write(restaurant, 'utf8', cb);
         const end = new Date();
-        console.log('end restaurants', ' time: ', end - start);
+        console.log('end restaurants', ' time: ', end - start, 'ms');
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.
@@ -127,3 +127,5 @@ function writeManyTimes(stream, cb) {
 writeManyTimes(restaurantStream, () => {
   restaurantStream.end();
 });
+
+// COPY restaurants(name, address, coord, phone, website) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant_sql.csv' DELIMITER ',' CSV HEADER;

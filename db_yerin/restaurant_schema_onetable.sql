@@ -1,20 +1,16 @@
-DROP DATABASE IF EXISTS restaurantinfo;
+DROP DATABASE IF EXISTS zagat;
 
-CREATE DATABASE restaurantinfo;
+CREATE DATABASE zagat;
 
-\c restaurantinfo;
+\c zagat;
 
-CREATE TABLE restaurants (
+CREATE TABLE zagatinfo (
   id serial primary key unique,
   name varchar(100) NOT NULL,
   address varchar(100) NOT NULL,
   coord varchar(100) NOT NULL,
   phone varchar(40) NOT NULL,
-  website varchar(40) NOT NULL
-);
-
-CREATE TABLE hours (
-  id serial primary key unique,
+  website varchar(40) NOT NULL,
   Monday_open integer NOT NULL,
   Monday_close integer NOT NULL,
   Tuesday_open integer NOT NULL,
@@ -28,7 +24,27 @@ CREATE TABLE hours (
   Saturday_open integer NOT NULL,
   Saturday_close integer NOT NULL,
   Sunday_open integer NOT NULL,
-  Sunday_close integer NOT NULL,
-  restaurant_id integer NOT NULL,
-  foreign key (restaurant_id) references restaurants(id)
+  Sunday_close integer NOT NULL
 );
+
+\timing
+
+COPY zagatinfo(id, name,
+  address,
+  coord,
+  phone,
+  website,
+  Monday_open,
+  Monday_close,
+  Tuesday_open,
+  Tuesday_close,
+  Wednesday_open,
+  Wednesday_close,
+  Thursday_open,
+  Thursday_close,
+  Friday_open,
+  Friday_close,
+  Saturday_open,
+  Saturday_close,
+  Sunday_open,
+  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant.csv' DELIMITER ',' CSV HEADER

@@ -80,6 +80,3 @@ const generateRandomOpeningHours = () => {
     hours.push(opening);
   }
 };
-
-
-console.log();

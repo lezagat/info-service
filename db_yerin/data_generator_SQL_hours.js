@@ -29,39 +29,39 @@ const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/hours_sql.c
 
 function writeManyTimes(stream, cb) {
   const start = new Date();
-  console.log('start restaurants');
+  console.log('start hours');
   let i = 10000000;
+  let header = ['Monday_open',
+    'Monday_close',
+    'Tuesday_open',
+    'Tuesday_close',
+    'Wednesday_open',
+    'Wednesday_close',
+    'Thursday_open',
+    'Thursday_close',
+    'Friday_open',
+    'Friday_close',
+    'Saturday_open',
+    'Saturday_close',
+    'Sunday_open',
+    'Sunday_close',
+    'restaurant_id'];
 
+  header = `${header.join(',')}\n`;
+  stream.write(header);
+  
   function write() {
     let ok = true;
-    let header = ['Monday_open',
-      'Monday_close',
-      'Tuesday_open',
-      'Tuesday_close',
-      'Wednesday_open',
-      'Wednesday_close',
-      'Thursday_open',
-      'Thursday_close',
-      'Friday_open',
-      'Friday_close',
-      'Saturday_open',
-      'Saturday_close',
-      'Sunday_open',
-      'Sunday_close',
-      'restaurant_id'];
-
-    header = `${header.join(',')}\n`;
-    stream.write(header);
 
     do {
       let restaurant = [
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
-        opens[Math.floor(Math.random() * 100)], closes[Math.floor(Math.random() * 100)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
+        opens[Math.floor(Math.random() * 99)], closes[Math.floor(Math.random() * 99)],
         i,
       ];
       restaurant = `${restaurant.join(',')}\n`;
@@ -70,7 +70,7 @@ function writeManyTimes(stream, cb) {
         // last time!
         stream.write(restaurant, 'utf8', cb);
         const end = new Date();
-        console.log('end restaurants', ' time: ', end - start);
+        console.log('end hours', ' time: ', end - start, 'ms');
       } else {
         // see if we should continue, or wait
         // don't pass the callback, because we're not done yet.
@@ -89,3 +89,7 @@ function writeManyTimes(stream, cb) {
 writeManyTimes(restaurantStream, () => {
   restaurantStream.end();
 });
+
+// COPY hours(Monday_open, Monday_close, Tuesday_open, Tuesday_close, Wednesday_open, Wednesday_close, Thursday_open, Thursday_close, Friday_open, Friday_close, Saturday_open, Saturday_close, Sunday_open, Sunday_close, restaurant_id) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/hours_sql.csv' DELIMITER ',' CSV HEADER;
+
+// \ timing on
