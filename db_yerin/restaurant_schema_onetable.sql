@@ -6,7 +6,7 @@ CREATE DATABASE zagat;
 
 CREATE TABLE zagatinfo (
   id serial primary key unique,
-  name varchar(100) NOT NULL,
+  name varchar(150) NOT NULL,
   address varchar(100) NOT NULL,
   coord varchar(100) NOT NULL,
   phone varchar(40) NOT NULL,
@@ -47,4 +47,4 @@ COPY zagatinfo(id, name,
   Saturday_open,
   Saturday_close,
   Sunday_open,
-  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant.csv' DELIMITER ',' CSV HEADER
+  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant1.csv' DELIMITER ',' CSV HEADER

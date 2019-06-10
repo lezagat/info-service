@@ -91,7 +91,7 @@ generateRandomUrls(1000);
 generateRandomOpeningHours();
 
 
-const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant.csv`, { flag: 'a' });
+const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant1.csv`, { flag: 'a' });
 
 
 function writeManyTimes(stream, cb) {
@@ -168,5 +168,3 @@ function writeManyTimes(stream, cb) {
 writeManyTimes(restaurantStream, () => {
   restaurantStream.end();
 });
-
-// restaurantStream.end();

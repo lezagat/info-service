@@ -1,3 +1,5 @@
+tracing on
+
 DROP KEYSPACE IF EXISTS restaurant;
 
 CREATE KEYSPACE restaurant WITH REPLICATION = { 
@@ -9,7 +11,6 @@ USE restaurant;
 
 CREATE TABLE restaurants (
   id INT PRIMARY KEY,
-  name text,
   address text,
   coord text,
   phone text,
@@ -27,10 +28,12 @@ CREATE TABLE restaurants (
   Saturday_open int,
   Saturday_close int,
   Sunday_open int,
-  Sunday_close int
+  Sunday_close int,
+  name text
 );
 
-tracing on
+CREATE INDEX names ON restaurants(name);
+
 
 COPY restaurants(id, name,
   address,
@@ -50,4 +53,7 @@ COPY restaurants(id, name,
   Saturday_open,
   Saturday_close,
   Sunday_open,
-  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant.csv' WITH DELIMITER = ',' AND HEADER = TRUE;
+  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant1.csv' WITH DELIMITER = ',' AND HEADER = TRUE;
+
+  --source 'restaurant_schema_onetable.cql';
+  --create index restaurants on name;
