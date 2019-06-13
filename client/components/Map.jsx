@@ -57,6 +57,7 @@ const Marker = ({ text }) => (
 const Map = ({ data, modalIsOpen, toggleModal }) => {
   if (data) {
     const coords = MapHelpers.parseCoords(data.location.coords);
+    console.log(coords);
     return (
       <MapDiv>
         <GoogleMapReact

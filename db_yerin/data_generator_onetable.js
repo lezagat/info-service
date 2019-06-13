@@ -40,7 +40,7 @@ const generateRandomCoords = (num) => {
   for (let i = 1; i <= num; i += 1) {
     const longitude = faker.address.longitude();
     const latitude = faker.address.latitude();
-    const coord = `${latitude} ${longitude}`;
+    const coord = `${latitude}, ${longitude}`;
     coords.push(coord);
   }
 };
@@ -91,7 +91,7 @@ generateRandomUrls(1000);
 generateRandomOpeningHours();
 
 
-const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant1.csv`, { flag: 'a' });
+const restaurantStream = fs.createWriteStream(`${__dirname}/data_sql/restaurant2.csv`, { flag: 'a' });
 
 
 function writeManyTimes(stream, cb) {

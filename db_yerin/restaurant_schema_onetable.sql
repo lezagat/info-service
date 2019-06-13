@@ -5,7 +5,7 @@ CREATE DATABASE zagat;
 \c zagat;
 
 CREATE TABLE zagatinfo (
-  id serial primary key unique,
+  id serial primary key,
   name varchar(150) NOT NULL,
   address varchar(100) NOT NULL,
   coord varchar(100) NOT NULL,
@@ -48,3 +48,5 @@ COPY zagatinfo(id, name,
   Saturday_close,
   Sunday_open,
   Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant1.csv' DELIMITER ',' CSV HEADER
+
+  -- SELECT setval(pg_get_serial_sequence('zagatinfo', 'id'), max(id))FROM zagatinfo;
