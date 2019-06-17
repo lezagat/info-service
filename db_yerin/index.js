@@ -1,19 +1,25 @@
+/* eslint-disable prefer-template */
 /* eslint-disable no-restricted-syntax */
 const { Pool } = require('pg');
 
-const connectionString = 'postgres://yerincha:@localhost:5432/zagat';
+const connectionString = 'postgres://postgres:new_password@18.219.107.154/zagat';
 
 const pool = new Pool({ connectionString });
 
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res);
+});
+
 const getRestaurantById = (req, res) => {
-  pool.query(`SELECT * from zagatinfo WHERE id = ${req.params.id}`, (err, results) => {
+  const q = 'SELECT * from zagatinfo WHERE id = ' + req.params.id + ';';
+  pool.query(q, (err, results) => {
     const result = results.rows[0];
     if (err) {
       res.sendStatus(500);
     } else {
       let cor = result.coord;
       const corArr = cor.split(' ');
-      cor = `${corArr[0]}0000000000° N,${corArr[1]}0000000000° W`;
+      cor = corArr[0] + ',' + corArr[1];
       const data = {};
       data.location = {
         address: result.address,

@@ -47,6 +47,8 @@ COPY zagatinfo(id, name,
   Saturday_open,
   Saturday_close,
   Sunday_open,
-  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant1.csv' DELIMITER ',' CSV HEADER
+  Sunday_close) FROM '/Users/yerincha/Desktop/HackReactor/SDC_zagat/zagat-restaurant-info/db_yerin/data_sql/restaurant1.csv' DELIMITER ',' CSV HEADER;
+
+  create index idx_name on zagatinfo(name);
 
   -- SELECT setval(pg_get_serial_sequence('zagatinfo', 'id'), max(id))FROM zagatinfo;
