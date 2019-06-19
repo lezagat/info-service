@@ -13,52 +13,54 @@ pool.query('SELECT NOW()', (err, res) => {
 const getRestaurantById = (req, res) => {
   const q = 'SELECT * from zagatinfo WHERE id = ' + req.params.id + ';';
   pool.query(q, (err, results) => {
-    const result = results.rows[0];
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      let cor = result.coord;
-      const corArr = cor.split(' ');
-      cor = corArr[0] + ',' + corArr[1];
-      const data = {};
-      data.location = {
-        address: result.address,
-        coords: cor,
-      };
-      data.hours = {
-        Monday: {
-          open: result.monday_open,
-          close: result.monday_close,
-        },
-        Tuesday: {
-          open: result.tuesday_open,
-          close: result.tuesday_close,
-        },
-        Wednesday: {
-          open: result.wednesday_open,
-          close: result.wednesday_close,
-        },
-        Thursday: {
-          open: result.thursday_open,
-          close: result.thursday_close,
-        },
-        Friday: {
-          open: result.friday_open,
-          close: result.friday_close,
-        },
-        Saturday: {
-          open: result.saturday_open,
-          close: result.saturday_close,
-        },
-        Sunday: {
-          open: result.sunday_open,
-          close: result.sunday_close,
-        },
-      };
-      data.id = result.id;
-      data.phone = result.phone;
-      data.website = result.website;
-      res.send(data);
+    if (results !== undefined) {
+      const result = results.rows[0];
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        let cor = result.coord;
+        const corArr = cor.split(' ');
+        cor = corArr[0] + ',' + corArr[1];
+        const data = {};
+        data.location = {
+          address: result.address,
+          coords: cor,
+        };
+        data.hours = {
+          Monday: {
+            open: result.monday_open,
+            close: result.monday_close,
+          },
+          Tuesday: {
+            open: result.tuesday_open,
+            close: result.tuesday_close,
+          },
+          Wednesday: {
+            open: result.wednesday_open,
+            close: result.wednesday_close,
+          },
+          Thursday: {
+            open: result.thursday_open,
+            close: result.thursday_close,
+          },
+          Friday: {
+            open: result.friday_open,
+            close: result.friday_close,
+          },
+          Saturday: {
+            open: result.saturday_open,
+            close: result.saturday_close,
+          },
+          Sunday: {
+            open: result.sunday_open,
+            close: result.sunday_close,
+          },
+        };
+        data.id = result.id;
+        data.phone = result.phone;
+        data.website = result.website;
+        res.send(data);
+      }
       // res.send(result.rows[0]).status(200);
     }
   });
