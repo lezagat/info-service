@@ -34,7 +34,7 @@
     "express": "^4.16.4",
     "google-map-react": "^1.1.4",
     "json2csv": "^4.5.1",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.7.5",
     "newrelic": "^5.9.1",
     "pg": "^7.11.0",
     "react": "^16.8.6",
